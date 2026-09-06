@@ -1,0 +1,23 @@
+[Unit]
+Description=HostBuster Auto NAT Service
+After=network-online.target rinetd.service
+Wants=network-online.target
+Requires=rinetd.service
+
+StartLimitBurst=3
+StartLimitIntervalSec=60
+
+[Service]
+Type=simple
+EnvironmentFile=/usr/local/sbin/hostbuster_auto_nat.env
+ExecStart=/usr/local/sbin/hostbuster_auto_nat.sh
+
+StandardOutput=journal
+StandardError=journal
+
+TimeoutStartSec=60
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
